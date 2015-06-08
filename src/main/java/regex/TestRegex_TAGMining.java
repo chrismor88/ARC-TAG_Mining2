@@ -25,9 +25,11 @@ public class TestRegex_TAGMining{
 		final String REGEX_TIME = time1+"|"+time2;
 
 
-		final String REGEX_DISTANCE = "(\\d+(\\.|,)?(\\d+)?\\s*(km|kilometer|mi|ft|yd|m)(s?))";
 		
+		final String length_measure = "(((k|c|d|m)?m)|((kilo|deci|centi|milli)?meter)|mi|ft|yd|mile|in(ches)?)";
+		final String distance1 = "(\\d+(\\.|,)?(\\d+)?\\s*"+length_measure+"(s?))";
 		
+		final String REGEX_DISTANCE = distance1;
 		
 		
 
