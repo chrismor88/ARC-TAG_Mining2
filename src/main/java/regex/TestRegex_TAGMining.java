@@ -12,7 +12,8 @@ public class TestRegex_TAGMining{
 		/* REGEX */
 
 		final String REGEX_ORD = "((\\d+(st|nd|rd|th)) | (\\d+°))";
-
+		final String REGEX_NUM = "\\d+";
+		
 
 		//for format time hh:mm:ss, hh:mm, hh:mm am, hh:mm:ss pm ...........
 		final String time1 ="(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?(\\s*(am|AM|pm|PM))?)";
@@ -24,6 +25,11 @@ public class TestRegex_TAGMining{
 		final String REGEX_TIME = time1+"|"+time2;
 
 
+		final String REGEX_DISTANCE = "(\\d+(\\.|,)?(\\d+)?\\s*(km|kilometer|mi|ft|yd|m)(s?))";
+		
+		
+		
+		
 
 
 
@@ -70,7 +76,8 @@ public class TestRegex_TAGMining{
 		final String TAG_DATE = " #DATE ";
 		final String TAG_TIME = " #TIME ";
 		final String TAG_ORD = " #ORD ";
-
+		final String TAG_NUM = " #NUM ";
+		final String TAG_DISTANCE = " #DISTANCE ";
 
 
 
@@ -88,7 +95,10 @@ public class TestRegex_TAGMining{
 		String text7 = "12th March       12th Mar. 1988";
 		String text8 = "1:02:34      1h 30min   1h 21m   1h 21m 38s  1 h 21 m 38 s 1:05 am   7:45 pm ";
 		String text9 = " 1st    2nd  100th      1°   12°   ";
-
+		String text10 = "1km   1,30232 m  321.039120 ms";
+		
+		
+		
 
 		Pattern patternTime = Pattern.compile(REGEX_TIME);
 		Matcher matcherTime = patternTime.matcher(text8);
@@ -110,9 +120,13 @@ public class TestRegex_TAGMining{
 		Matcher matcherOrd = patternOrd.matcher(text9);
 		String result5 = matcherOrd.replaceAll(TAG_ORD);
 
+		Pattern patternDistance = Pattern.compile(REGEX_DISTANCE);
+		Matcher matcherDistance = patternDistance.matcher(text10);
+		String result6 = matcherDistance.replaceAll(TAG_DISTANCE);
+		
+		
 
-
-
+		/*
 
 		System.out.println(text8);
 		System.out.println(result1);
@@ -134,8 +148,10 @@ public class TestRegex_TAGMining{
 		System.out.println(text9);
 		System.out.println(result5);
 		System.out.println();
-
-
+		*/
+		System.out.println(text10);
+		System.out.println(result6);
+		System.out.println();
 
 
 	}
