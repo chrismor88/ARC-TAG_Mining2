@@ -3,4 +3,11 @@
   <groupId>ARC</groupId>
   <artifactId>ARC-TAG_Mining</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.jsoup</groupId>
+  		<artifactId>jsoup</artifactId>
+  		<version>1.8.2</version>
+  	</dependency>
+  </dependencies>
 </project>

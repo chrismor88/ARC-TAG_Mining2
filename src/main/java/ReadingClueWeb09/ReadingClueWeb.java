@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.zip.GZIPInputStream;
 
+import org.jsoup.Jsoup;
+
 
 
 public class ReadingClueWeb {
@@ -34,12 +36,24 @@ public class ReadingClueWeb {
 				if (HTMLContent.indexOf("<")!=-1){
 					HTMLContent2 = HTMLContent.substring(HTMLContent.indexOf("<"));
 				}
-				System.out.println(HTMLContent2);
-                System.out.println("====================================");
+				String body = getHTMLBody(HTMLContent2);
+				//System.out.println(body);
+                System.out.println(HTMLContent);
+				System.out.println("====================================");
               }
             }
             
             inStream.close();
           }
-	
+	private static String getHTMLBody(String HTMLContent){
+		String aux="";
+		try {
+			aux= Jsoup.parse(HTMLContent).body().text();
+
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		return aux;
+	}
+
 }
