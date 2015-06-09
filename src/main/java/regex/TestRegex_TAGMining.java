@@ -26,10 +26,13 @@ public class TestRegex_TAGMining{
 
 
 		
-		final String length_measure = "(((k|c|d|m)?m)|((kilo|deci|centi|milli)?meter)|mi|ft|yd|mile|in(ches)?)";
-		final String distance1 = "(\\d+(\\.|,)?(\\d+)?\\s*"+length_measure+"(s?))";
+		final String LENGTH_MEASURE = "((\\s*(k|c|d|m)?m(s?))|(\\s*(kilo|deci|centi|milli)?meter)|\\s*(mi|ft|yd|mile(s?)|in(ches)?|NM|nm))";
+		final String AREA_MEASURE = "((\\s*(k|c|d|m)?m\\^2)|\\s*(mi\\^2|ha|a|ca)|\\s+((in|yd|ft|NM|nm)\\^2)|\\s+(ro|acro))";
+		final String SPEED_MEASURE = "(\\s*((m/s)|(km/h)(ft/s)|mph|knot))";
 		
-		final String REGEX_DISTANCE = distance1;
+		final String REGEX_DISTANCE = "(\\d+(\\.|,)?(\\d+)?\\s*"+LENGTH_MEASURE+")";
+		final String REGEX_AREA = "(\\d+(\\.|,)?(\\d+)?\\s*"+AREA_MEASURE;
+		final String REGEX_SPEED = "(\\d+(\\.|,)?(\\d+)?\\s*"+AREA_MEASURE;
 		
 		
 
@@ -80,6 +83,8 @@ public class TestRegex_TAGMining{
 		final String TAG_ORD = " #ORD ";
 		final String TAG_NUM = " #NUM ";
 		final String TAG_DISTANCE = " #DISTANCE ";
+		final String TAG_AREA = " #AREA ";
+		final String TAG_SPEED = " #SPEED ";
 
 
 
