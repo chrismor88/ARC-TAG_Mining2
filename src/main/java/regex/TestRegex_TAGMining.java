@@ -31,8 +31,8 @@ public class TestRegex_TAGMining{
 		final String SPEED_MEASURE = "(\\s*((m/s)|(km/h)(ft/s)|mph|knot))";
 		
 		final String REGEX_DISTANCE = "(\\d+(\\.|,)?(\\d+)?\\s*"+LENGTH_MEASURE+")";
-		final String REGEX_AREA = "(\\d+(\\.|,)?(\\d+)?\\s*"+AREA_MEASURE;
-		final String REGEX_SPEED = "(\\d+(\\.|,)?(\\d+)?\\s*"+AREA_MEASURE;
+		final String REGEX_AREA = "(\\d+(\\.|,)?(\\d+)?\\s*"+AREA_MEASURE+")";
+		final String REGEX_SPEED = "(\\d+(\\.|,)?(\\d+)?\\s*"+SPEED_MEASURE+")";
 		
 		
 
