@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.zip.GZIPInputStream;
 
+import phrases.*;
+
 import org.jsoup.Jsoup;
 
 
@@ -23,7 +25,8 @@ public class ReadingClueWeb {
             // iterate through our stream
             WarcRecord thisWarcRecord;
             //PrintWriter pw = new PrintWriter("/home/roberto/Scrivania/bodyURL.txt");
-            
+            //creo array di stringhe per memorizzare le frasi
+            String[] phrases;
             while ((thisWarcRecord=WarcRecord.readNextWarcRecord(inStream))!=null) {
               // see if it's a response record
               if (thisWarcRecord.getHeaderRecordType().equals("response")) {
@@ -40,7 +43,9 @@ public class ReadingClueWeb {
 				if (HTMLContent.indexOf("<")!=-1){
 					HTMLContent2 = HTMLContent.substring(HTMLContent.indexOf("<"));
 				}
-				String body = getHTMLBody(HTMLContent2);
+				String textBody = getHTMLBody(HTMLContent2);
+				phrases = SentenceDetector.SentenceDetect(textBody);
+				
 				//System.out.println(body);
                 //System.out.println("====================================");
                 /*pw.println(HTMLContent2);
