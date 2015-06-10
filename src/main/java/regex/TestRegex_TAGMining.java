@@ -56,14 +56,14 @@ public class TestRegex_TAGMining{
 		
 		final String CURRENCY = "(USD|usd|EUR|euro|dollar(s)?|pound(s)?|GBP|yen|JPY|CHF|AUD|AFN|ALL|DZD|AOA|ARS|AMD|AWG|"+
 								"AZN|BSD|BHD|BDT|BBD|BYR|BZD|BMD|BTN|BOB|BAM|BWP|BRL|BND|BGN|BIF|XOF|XAF|XPF|KHR|CAD|CVE|KYD|"+
-								"CLP|CNY|COP|KMF|CDF|CRC|HRK|CUC|CUP|CYP|€|£|$)";
+								"CLP|CNY|COP|KMF|CDF|CRC|HRK|CUC|CUP|CYP|RUB|€|£|$)";
 		
 		final String REGEX_MONEY = "(\\d+((\\.|,)?\\d+)?\\s*"+CURRENCY+")|("+CURRENCY+"\\s*\\d+((\\.|,)?\\d+)?)";
 				
 
 
 		final String MONTH = "(\\s*(January|january|jan(\\.)|Jan(\\.)?|JAN(\\.)?|February|february|Feb(\\.)?|FEB(\\.)?|feb(\\.)?|March|march|Mar(\\.)?|MAR(\\.)?|mar(\\.)?|April|april|Apr(\\.)?|APR(\\.)?|"+
-				"May|MAY|may|June|JUNE|june|July|JULY|july|August|august|Aug(\\.)?|AUG(\\.)?|aug(\\.)?"+
+				"May|MAY|may|June|JUNE|june|July|JULY|july|August|august|Aug(\\.)?|AUG(\\.)?|aug(\\.)?|"+
 				"September|september|Sept(\\.)?|SEPT(\\.)?|sept(\\.)?|October|october|Oct(\\.)?|OCT(\\.)?|oct(\\.)?|November|november|Nov(\\.)?|NOV(\\.)?|nov(\\.)?|December|december|Dec(\\.)?|DEC(\\.)?|dec(\\.)?)\\s*)";
 
 		//for format dd/mm/yyyy, dd/mm/yy, dd.mm.yyyy, dd.mm.yy, dd-mm-yyyy, dd-mm-yy, dd mm yyyy, dd mm yy
@@ -91,11 +91,14 @@ public class TestRegex_TAGMining{
 
 
 
-		final String REGEX_URL = "<a href=\"http://(.)*>(.)*</a>";
+		final String REGEX_URL = "<(A|a)\\s*(\\w*=\\w*\\s*)*href=\"(http:\\/\\/)*(\\w*|\\.|\\/|\\?|=|\")*>(\\w|\\s)*<\\/(a|A)>";
 
 
-
-
+		final String REGEX_CLEAN_TEXT = "<(\\w)*|(\\/)(\\w)*>";
+		
+final String REGEX_PHONE = "(\\+)*(\\d+-)*\\(\\d+\\)(-|\\s)+\\d+(-|\\s)*\\d+|\\d+\\.\\d+\\.\\d+|(\\+)*\\d+\\s\\d+\\s\\d+(\\s\\d+)*|\\d+-\\d+-\\d+\\d+\\s\\d+|(\\+)+\\d*\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\d+\\s)+\\d+\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\+\\d+\\s)*\\d+-\\d+\\s\\d+"+
+"|\\d+\\s\\(\\d+\\)\\s\\d+\\s\\d+|\\d{3,4}\\s\\d{4}";
+//(\+)*(\d+-)*\(\d+\)(-|\s)+\d+(-|\s)*\d+|\d+\.\d+\.\d+|(\+)*\d+\s\d+\s\d+(\s\d+)*|\d+-\d+-\d+\d\s\d+|(\+)+\d*\s(\()+\d+(\))+\s\d+\s\d+|(\d+\s)+\d+\s(\()+\d+(\))+\s\d+\s\d+|(\+\d+\s)*\d+-\d+\s\d+
 
 
 
@@ -113,6 +116,7 @@ public class TestRegex_TAGMining{
 		final String TAG_VOLUME = " #VOLUME ";
 		final String TAG_DATA_RATE = " #DATA_RATE ";
 		final String TAG_MONEY = " #MONEY ";
+		final String TAG_PHONE = " #CALL ";
 
 
 
@@ -131,8 +135,52 @@ public class TestRegex_TAGMining{
 		String text10 = "1km   1,30232 m  321.039120 ms";
 		String text11 = "15GB/s 10Mb/s     fdsjkfsdkjf eqweqwe 7 Kbps   ";
 		
+		String text12 = "555.123.4567	+1-(800)-555-2468"+
+					"foo@demo.net	bar.ba@test.co.uk"+
+					"<a href=\"www.demo.com\">fdsfsd fsdfsdfsdfds   </a>"+
+					"http://foo.co.uk/"+
+					"<a href=\"http://regexr.com/foo.html?q=bar\">hdjskhkja sdajksdkajsd</a>"+
+					"<TD style=\"PADDING-RIGHT: 5px; PADDING-LEFT: 5px\" noWrap background=images/link-bg.gif>"+
+					"<A class=toplink href=\"http://004967b.netsolhost.com/home.php\">Home</A></TD>";		
 		
+		
+		String text13 = "< Home Videos Product Color Customization Contact Us View Cart WELCOME TO THE WORLD OF UNIQUE VENDING CARTS.    < Welcome to Unique Vending Carts We proudly present a new concept and the most innovative food carts in the industry. Our carts are made of fiberglass, aluminum and steel, making them strong and lightweight. They are also customizable. Instead of the usual grey, we can supply them in any color you want and adapt the cart to any food or beverage application. The carts are ideal for parties, events, promotions, catering or just that extra touch in the back yard or home movie theater. Your imagination is the limit. ICE SHAVER CARTS Misc. Specific-Purpose Carts HOT DOG CARTS ICE CREAM CARTS 1  2  Next /strong> New Page 1 Toll Free (866) 483 2730 In the UK 020 799 35456 Click below for videos > Beer Cart Video Ice Cream Cart Video Hot Dog Tow Cart Video Shaved Ice Cart Video Crepe-on-SticksVideo Coconut Water Cart Video Skewer Cart Video Tryke Video Corn Push Cart Video Hot Dog Push Cart Video < PRIVACY We are committed to protecting your privacy. We use the information we collect about you to process orders and to provide a more personalized shopping experience. copyright @ Unique Vending Carts.";
 
+		
+		
+		String text14 =  "Faxing from US to UK: \n"+
+"Option 1: +44 161 999 8888 \n"+
+"Option 2: 011 44 (161) 999 8888 \n"+
+"Note that a US-based user (as defined in account defaults) can dial the US-specific international access code 011.\n"+
+
+"User wishes to send a fax to another area within the United States:  \n"+
+"Option 1: 1-408-999 8888 \n"+
+"Option 2: +1 (408) 999 8888 \n"+
+
+"User wishes to send a fax to another phone number IN New York: \n"+
+"Option 1: 222 8888 \n"+
+"Option 2: 1-212-222 8888 \n"+
+"Option 3: +1 (212) 222 8888 \n"+
+
+"Example 2: \n"+
+"User is configured to dial from London, UK. \n"+
+
+"User wishes to send a fax to another country (USA, with country code '1'): \n"+
+"Option 1: +1 212 999 8888 \n"+
+"Option 2: 001 (212) 999 8888 \n"+
+"Note that a UK-based user (as defined in account defaults) can dial the UK-specific international access code 00. \n"+
+
+"User wishes to send a fax to another area within the UK: \n"+
+"Option 1: 0161 999 8888 \n"+
+"Option 2: +44 (161) 999 8888 \n"+
+
+"User wishes to send a fax to another phone number IN London: \n"+
+"Option 1: 2222 8888\n "+
+"Option 2: 01-2222 8888 \n"+
+"Option 3: +44 1-2222 8888 \n";
+		
+		
+		
 		Pattern patternTime = Pattern.compile(REGEX_TIME);
 		Matcher matcherTime = patternTime.matcher(text8);
 		String result1 = matcherTime.replaceAll(TAG_TIME);
@@ -162,7 +210,21 @@ public class TestRegex_TAGMining{
 		String result7 = matcherDataRate.replaceAll(TAG_DATA_RATE);
 
 		
-	
+		Pattern patternURL = Pattern.compile(REGEX_URL);
+		Matcher matcherURL = patternURL.matcher(text12);
+		String result8 = matcherURL.replaceAll(TAG_URL);
+		
+		
+		Pattern patternCLEAN_TEXT = Pattern.compile(REGEX_CLEAN_TEXT);
+		Matcher matcherCLEAN_TEXT = patternCLEAN_TEXT.matcher(text13);
+		String result9 = matcherCLEAN_TEXT.replaceAll("");
+		
+		Pattern patternPHONE_NUMBER = Pattern.compile(REGEX_PHONE);
+		Matcher matcherPHONE_NUMBER = patternPHONE_NUMBER.matcher(text14);
+		String result10 = matcherPHONE_NUMBER.replaceAll(TAG_PHONE);
+		
+		
+		/*
 		System.out.println(text8);
 		System.out.println(result1);
 		System.out.println();
@@ -188,14 +250,26 @@ public class TestRegex_TAGMining{
 		System.out.println(result6);
 		System.out.println();
 		
-		
-		
 		System.out.println(text11);
 		System.out.println(result7);
 		System.out.println();
+		
 
+		System.out.println(text12);
+		System.out.println(result8);
+		System.out.println();
 		
 		
+		
+		System.out.println(text13);
+		System.out.println(result9);
+		System.out.println();
+		*/
+		
+		
+		System.out.println(text14);
+		System.out.println(result10);
+		System.out.println();
 
 	}
 
