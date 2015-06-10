@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class TestRegex_TAGMining{
 
-	
+
 
 	public static void main(String[] args) {
 
@@ -15,7 +15,7 @@ public class TestRegex_TAGMining{
 
 		final String REGEX_ORD = "((\\d+(st|nd|rd|th)) | (\\d+°))";
 		final String REGEX_NUM = "((\\+|-)?\\d+((\\.|,)\\d+)?(\\^\\d+)?((\\s*\\*\\s*)10\\^\\d+)?(\\s*E\\^(\\+|-)?\\d+)?)";
-		
+
 
 		//for format time hh:mm:ss, hh:mm, hh:mm am, hh:mm:ss pm ...........
 		final String time1 ="(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?(\\s*(am|AM|pm|PM))?)";
@@ -27,7 +27,7 @@ public class TestRegex_TAGMining{
 		final String REGEX_TIME = time1+"|"+time2;
 
 
-		
+
 		final String LENGTH_MEASURE = "((\\s*(k|c|d|m)?m(s?))|(\\s*(kilo|deci|centi|milli)?meter)|\\s*(mi|ft|yd|yard|naut mi|hand|span|mile(s?)|in(ches)?|NM|nm))";
 		final String AREA_MEASURE = "((\\s*(k|c|d|m)?m\\^2)|\\s*(mi\\^2|ha|a|ca)|\\s+((in|yd|ft|NM|nm)\\^2)|\\s+(ro|acro))";
 		final String SPEED_MEASURE = "\\s*((m/s)||(m/min)|(m/h)|(km/h)||(in/s)|(ft/s)|(ft/m)|(ft/h)|(km|m|miles)ph|mps|knot|kn|rpm|(rad/s)|(rad/min))\\s*";
@@ -36,14 +36,14 @@ public class TestRegex_TAGMining{
 		final String TEMPERATURE_MEASURE = "\\s*((c|C)elsius|°C|(k|K)elvin|°K|(f|F)ahrenheit|°F)\\s*";
 		final String PRESSURE_MEASURE = "\\s*(bar|Pa(scal)?|at(m?)|Torr|psi)\\s*";
 		final String DATA_MEASURE = "\\s*((giga|Giga||mega|Mega|kilo|Kilo|Tera|tera|peta|Peta|Exa|exa|Yotta|yotta)?byte(s?)|bit|(G|M|K|T|E|Y)B)\\s*";
-		
-		
-		
-		
-		
+
+
+
+
+
 		final String DATA_RATE_MEASURE = "\\s*(Kbps|Mbps|Gbps|(Kb/s(ec)?)|(Mb/s(ec)?)|(Gb/s(ec?))|(KB/s(ec)?)|(MB/s(ec)?)|(GB/s(ec)?))\\s*";
 
-		
+
 		final String REGEX_DISTANCE = REGEX_NUM+LENGTH_MEASURE;
 		final String REGEX_AREA = REGEX_NUM+AREA_MEASURE+")";
 		final String REGEX_SPEED = REGEX_NUM+SPEED_MEASURE+")";
@@ -53,13 +53,13 @@ public class TestRegex_TAGMining{
 		final String REGEX_PRESSURE = REGEX_NUM+PRESSURE_MEASURE+")";
 		final String REGEX_DATA_RATE = REGEX_NUM+DATA_RATE_MEASURE;
 
-		
+
 		final String CURRENCY = "(USD|usd|EUR|euro|dollar(s)?|pound(s)?|GBP|yen|JPY|CHF|AUD|AFN|ALL|DZD|AOA|ARS|AMD|AWG|"+
-								"AZN|BSD|BHD|BDT|BBD|BYR|BZD|BMD|BTN|BOB|BAM|BWP|BRL|BND|BGN|BIF|XOF|XAF|XPF|KHR|CAD|CVE|KYD|"+
-								"CLP|CNY|COP|KMF|CDF|CRC|HRK|CUC|CUP|CYP|RUB|€|£|$)";
-		
+				"AZN|BSD|BHD|BDT|BBD|BYR|BZD|BMD|BTN|BOB|BAM|BWP|BRL|BND|BGN|BIF|XOF|XAF|XPF|KHR|CAD|CVE|KYD|"+
+				"CLP|CNY|COP|KMF|CDF|CRC|HRK|CUC|CUP|CYP|RUB|€|£|$)";
+
 		final String REGEX_MONEY = "(\\d+((\\.|,)?\\d+)?\\s*"+CURRENCY+")|("+CURRENCY+"\\s*\\d+((\\.|,)?\\d+)?)";
-				
+
 
 
 		final String MONTH = "(\\s*(January|january|jan(\\.)|Jan(\\.)?|JAN(\\.)?|February|february|Feb(\\.)?|FEB(\\.)?|feb(\\.)?|March|march|Mar(\\.)?|MAR(\\.)?|mar(\\.)?|April|april|Apr(\\.)?|APR(\\.)?|"+
@@ -81,7 +81,7 @@ public class TestRegex_TAGMining{
 
 		//for format ddth Month   ddth Month yyyy
 		final String date5 = "("+REGEX_ORD+MONTH+"(\\d{4})?)";
-	
+
 		//for format yyyy-mm-dd, yyyy/mm/dd, yyyy mm dd
 		final String date6 = "([1|2]\\d{3}(\\.|-|/|\\s+)([0]?[1-9]|[1][0-2])(\\.|-|/|\\s+)(\\d{1,2}))";
 
@@ -91,14 +91,13 @@ public class TestRegex_TAGMining{
 
 
 
-		final String REGEX_URL = "<(A|a)\\s*(\\w*=\\w*\\s*)*href=\"(http:\\/\\/)*(\\w*|\\.|\\/|\\?|=|\")*>(\\w|\\s)*<\\/(a|A)>";
-
+		final String REGEX_URL = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?)*>(\\.)*<\\/(a|A)>";
 
 		final String REGEX_CLEAN_TEXT = "<(\\w)*|(\\/)(\\w)*>";
-		
-final String REGEX_PHONE = "(\\+)*(\\d+-)*\\(\\d+\\)(-|\\s)+\\d+(-|\\s)*\\d+|\\d+\\.\\d+\\.\\d+|(\\+)*\\d+\\s\\d+\\s\\d+(\\s\\d+)*|\\d+-\\d+-\\d+\\d+\\s\\d+|(\\+)+\\d*\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\d+\\s)+\\d+\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\+\\d+\\s)*\\d+-\\d+\\s\\d+"+
-"|\\d+\\s\\(\\d+\\)\\s\\d+\\s\\d+|\\d{3,4}\\s\\d{4}";
-//(\+)*(\d+-)*\(\d+\)(-|\s)+\d+(-|\s)*\d+|\d+\.\d+\.\d+|(\+)*\d+\s\d+\s\d+(\s\d+)*|\d+-\d+-\d+\d\s\d+|(\+)+\d*\s(\()+\d+(\))+\s\d+\s\d+|(\d+\s)+\d+\s(\()+\d+(\))+\s\d+\s\d+|(\+\d+\s)*\d+-\d+\s\d+
+
+		final String REGEX_PHONE = "(\\+)*(\\d+-)*\\(\\d+\\)(-|\\s)+\\d+(-|\\s)*\\d+|\\d+\\.\\d+\\.\\d+|(\\+)*\\d+\\s\\d+\\s\\d+(\\s\\d+)*|\\d+-\\d+-\\d+\\d+\\s\\d+|(\\+)+\\d*\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\d+\\s)+\\d+\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\+\\d+\\s)*\\d+-\\d+\\s\\d+"+
+				"|\\d+\\s\\(\\d+\\)\\s\\d+\\s\\d+|\\d{3,4}\\s\\d{4}";
+		//(\+)*(\d+-)*\(\d+\)(-|\s)+\d+(-|\s)*\d+|\d+\.\d+\.\d+|(\+)*\d+\s\d+\s\d+(\s\d+)*|\d+-\d+-\d+\d\s\d+|(\+)+\d*\s(\()+\d+(\))+\s\d+\s\d+|(\d+\s)+\d+\s(\()+\d+(\))+\s\d+\s\d+|(\+\d+\s)*\d+-\d+\s\d+
 
 
 
@@ -134,24 +133,24 @@ final String REGEX_PHONE = "(\\+)*(\\d+-)*\\(\\d+\\)(-|\\s)+\\d+(-|\\s)*\\d+|\\d
 		String text9 = " 1st    2nd  100th      1°   12°   ";
 		String text10 = "1km   1,30232 m  321.039120 ms";
 		String text11 = "15GB/s 10Mb/s     fdsjkfsdkjf eqweqwe 7 Kbps   ";
-		
+
 		String text12 = "555.123.4567	+1-(800)-555-2468"+
-					"foo@demo.net	bar.ba@test.co.uk"+
-					"<a href=\"www.demo.com\">fdsfsd fsdfsdfsdfds   </a>"+
-					"http://foo.co.uk/"+
-					"<a href=\"http://regexr.com/foo.html?q=bar\">hdjskhkja sdajksdkajsd</a>"+
-					"<TD style=\"PADDING-RIGHT: 5px; PADDING-LEFT: 5px\" noWrap background=images/link-bg.gif>"+
-					"<A class=toplink href=\"http://004967b.netsolhost.com/home.php\">Home</A></TD>";		
-		
-		
+				"foo@demo.net	bar.ba@test.co.uk"+
+				"<a href=\"www.demo.com\">fdsfsd fsdfsdfsdfds   </a>"+
+				"http://foo.co.uk/"+
+				"<a href=\"http://regexr.com/foo.html?q=bar\">hdjskhkja sdajksdkajsd</a>"+
+				"<TD style=\"PADDING-RIGHT: 5px; PADDING-LEFT: 5px\" noWrap background=images/link-bg.gif>"+
+				"<A class=toplink href=\"http://004967b.netsolhost.com/home.php\">Home</A></TD>";		
+
+
 		String text13 = "< Home Videos Product Color Customization Contact Us View Cart WELCOME TO THE WORLD OF UNIQUE VENDING CARTS.    < Welcome to Unique Vending Carts We proudly present a new concept and the most innovative food carts in the industry. Our carts are made of fiberglass, aluminum and steel, making them strong and lightweight. They are also customizable. Instead of the usual grey, we can supply them in any color you want and adapt the cart to any food or beverage application. The carts are ideal for parties, events, promotions, catering or just that extra touch in the back yard or home movie theater. Your imagination is the limit. ICE SHAVER CARTS Misc. Specific-Purpose Carts HOT DOG CARTS ICE CREAM CARTS 1  2  Next /strong> New Page 1 Toll Free (866) 483 2730 In the UK 020 799 35456 Click below for videos > Beer Cart Video Ice Cream Cart Video Hot Dog Tow Cart Video Shaved Ice Cart Video Crepe-on-SticksVideo Coconut Water Cart Video Skewer Cart Video Tryke Video Corn Push Cart Video Hot Dog Push Cart Video < PRIVACY We are committed to protecting your privacy. We use the information we collect about you to process orders and to provide a more personalized shopping experience. copyright @ Unique Vending Carts.";
 
-		
-		
+
+
 		String text14 =  "Faxing from US to UK: \n"+
-"Option 1: +44 161 999 8888 \n"+
-"Option 2: 011 44 (161) 999 8888 \n"+
-"Note that a US-based user (as defined in account defaults) can dial the US-specific international access code 011.\n"+
+				"Option 1: +44 161 999 8888 \n"+
+				"Option 2: 011 44 (161) 999 8888 \n"+
+				"Note that a US-based user (as defined in account defaults) can dial the US-specific international access code 011.\n"+
 
 "User wishes to send a fax to another area within the United States:  \n"+
 "Option 1: 1-408-999 8888 \n"+
@@ -178,9 +177,9 @@ final String REGEX_PHONE = "(\\+)*(\\d+-)*\\(\\d+\\)(-|\\s)+\\d+(-|\\s)*\\d+|\\d
 "Option 1: 2222 8888\n "+
 "Option 2: 01-2222 8888 \n"+
 "Option 3: +44 1-2222 8888 \n";
-		
-		
-		
+
+
+
 		Pattern patternTime = Pattern.compile(REGEX_TIME);
 		Matcher matcherTime = patternTime.matcher(text8);
 		String result1 = matcherTime.replaceAll(TAG_TIME);
@@ -204,26 +203,26 @@ final String REGEX_PHONE = "(\\+)*(\\d+-)*\\(\\d+\\)(-|\\s)+\\d+(-|\\s)*\\d+|\\d
 		Pattern patternDistance = Pattern.compile(REGEX_DISTANCE);
 		Matcher matcherDistance = patternDistance.matcher(text10);
 		String result6 = matcherDistance.replaceAll(TAG_DISTANCE);
-		
+
 		Pattern patternDataRate = Pattern.compile(REGEX_DATA_RATE);
 		Matcher matcherDataRate = patternDataRate.matcher(text11);
 		String result7 = matcherDataRate.replaceAll(TAG_DATA_RATE);
 
-		
+
 		Pattern patternURL = Pattern.compile(REGEX_URL);
 		Matcher matcherURL = patternURL.matcher(text12);
 		String result8 = matcherURL.replaceAll(TAG_URL);
-		
-		
+
+
 		Pattern patternCLEAN_TEXT = Pattern.compile(REGEX_CLEAN_TEXT);
 		Matcher matcherCLEAN_TEXT = patternCLEAN_TEXT.matcher(text13);
 		String result9 = matcherCLEAN_TEXT.replaceAll("");
-		
+
 		Pattern patternPHONE_NUMBER = Pattern.compile(REGEX_PHONE);
 		Matcher matcherPHONE_NUMBER = patternPHONE_NUMBER.matcher(text14);
 		String result10 = matcherPHONE_NUMBER.replaceAll(TAG_PHONE);
-		
-		
+
+
 		/*
 		System.out.println(text8);
 		System.out.println(result1);
@@ -249,27 +248,31 @@ final String REGEX_PHONE = "(\\+)*(\\d+-)*\\(\\d+\\)(-|\\s)+\\d+(-|\\s)*\\d+|\\d
 		System.out.println(text10);
 		System.out.println(result6);
 		System.out.println();
-		
+
 		System.out.println(text11);
 		System.out.println(result7);
 		System.out.println();
-		
+
+
+
+
+
+
+		System.out.println(text13);
+		System.out.println(result9);
+		System.out.println();
+
+			System.out.println(text14);
+		System.out.println(result10);
+		System.out.println();
+
+		 */
 
 		System.out.println(text12);
 		System.out.println(result8);
 		System.out.println();
-		
-		
-		
-		System.out.println(text13);
-		System.out.println(result9);
-		System.out.println();
-		*/
-		
-		
-		System.out.println(text14);
-		System.out.println(result10);
-		System.out.println();
+
+
 
 	}
 
