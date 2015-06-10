@@ -3,4 +3,17 @@
   <groupId>ARC</groupId>
   <artifactId>ARC-TAG_Mining</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.apache.opennlp</groupId>
+  		<artifactId>opennlp</artifactId>
+  		<version>1.5.3</version>
+  		<type>pom</type>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.opennlp</groupId>
+  		<artifactId>opennlp-uima</artifactId>
+  		<version>1.5.3</version>
+  	</dependency>
+  </dependencies>
 </project>
