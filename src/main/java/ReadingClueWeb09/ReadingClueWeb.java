@@ -17,7 +17,7 @@ public class ReadingClueWeb {
             // open our gzip input stream
             GZIPInputStream gzInputStream=new GZIPInputStream(new FileInputStream(inputWarcFile));
             
-            // cast to a data input stream
+            // cast to a data input stream...
             DataInputStream inStream=new DataInputStream(gzInputStream);
             
             // iterate through our stream
