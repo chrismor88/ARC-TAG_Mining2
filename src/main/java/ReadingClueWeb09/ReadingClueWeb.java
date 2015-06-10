@@ -22,7 +22,7 @@ public class ReadingClueWeb {
             
             // iterate through our stream
             WarcRecord thisWarcRecord;
-            PrintWriter pw = new PrintWriter("/home/roberto/Scrivania/bodyURL.txt");
+            //PrintWriter pw = new PrintWriter("/home/roberto/Scrivania/bodyURL.txt");
             
             while ((thisWarcRecord=WarcRecord.readNextWarcRecord(inStream))!=null) {
               // see if it's a response record
@@ -43,18 +43,18 @@ public class ReadingClueWeb {
 				String body = getHTMLBody(HTMLContent2);
 				//System.out.println(body);
                 //System.out.println("====================================");
-                pw.println(HTMLContent2);
+                /*pw.println(HTMLContent2);
                 pw.println("============================");
                 pw.println("estrazione testo jsoup");
                 pw.println("============================");
                 pw.println(body);
-                pw.println("============================");
+                pw.println("============================");*/
               }
             }
-            pw.close();
+            //pw.close();
             inStream.close();
             System.out.println("CONCLUSO");
-            //provaaaaa
+
           }
 	private static String getHTMLBody(String HTMLContent){
 		String aux="";
