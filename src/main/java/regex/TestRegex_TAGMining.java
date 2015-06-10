@@ -159,14 +159,3 @@ public class TestRegex_TAGMining{
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
