@@ -1,7 +1,9 @@
 package ReadingClueWeb09;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.zip.GZIPInputStream;
 
 import org.jsoup.Jsoup;
@@ -20,6 +22,8 @@ public class ReadingClueWeb {
             
             // iterate through our stream
             WarcRecord thisWarcRecord;
+            PrintWriter pw = new PrintWriter("/home/roberto/Scrivania/bodyURL.txt");
+            
             while ((thisWarcRecord=WarcRecord.readNextWarcRecord(inStream))!=null) {
               // see if it's a response record
               if (thisWarcRecord.getHeaderRecordType().equals("response")) {
@@ -38,12 +42,19 @@ public class ReadingClueWeb {
 				}
 				String body = getHTMLBody(HTMLContent2);
 				//System.out.println(body);
-                System.out.println(HTMLContent);
-				System.out.println("====================================");
+                //System.out.println("====================================");
+                pw.println(HTMLContent2);
+                pw.println("============================");
+                pw.println("estrazione testo jsoup");
+                pw.println("============================");
+                pw.println(body);
+                pw.println("============================");
               }
             }
-            
+            pw.close();
             inStream.close();
+            System.out.println("CONCLUSO");
+            
           }
 	private static String getHTMLBody(String HTMLContent){
 		String aux="";
