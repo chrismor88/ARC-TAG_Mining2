@@ -10,9 +10,9 @@ import java.nio.file.Files;
 
 public class TAGMiningFileWriter {
 
-	public static void writeOutput1(String trackID,String stringaDaRimpiazzare, String tag) throws Exception{
+	public static void writeOutput1(String warcTrecID,String stringaDaRimpiazzare, String tag) throws Exception{
 		String path = "/Volumes/DATA/workspace/TAGMining_output/output1.txt";
-
+		
 		try {
 			File file = new File(path);
 
@@ -27,7 +27,7 @@ public class TAGMiningFileWriter {
 				}
 				
 				PrintWriter pw = new PrintWriter(new FileWriter(file, true));
-				pw.write("BOMBAMI\n");
+				pw.write(warcTrecID+"\t\t\t"+stringaDaRimpiazzare+"\t\t\t"+tag+"\n");
 				pw.flush();
 				pw.close();
 			}
@@ -38,10 +38,8 @@ public class TAGMiningFileWriter {
 					pw.write("TRACK-ID\t\tSTRINGA DA SOSTITUIRE\t\tTAG\n");
 					pw.flush();
 					pw.close();
-				}else{
-
-				}
-				//throw new Exception("Impossibile creare il file output1!");
+				}else
+					throw new Exception("Impossibile creare il file output1!");	
 			}
 		}
 		catch (IOException e) {

@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 import phrases.*;
+import regex.TAGComponent;
+import writer_text.TAGMiningFileWriter;
 
 import org.jsoup.Jsoup;
 
@@ -53,9 +55,10 @@ public class ReadingClueWeb {
 		
 		final String TAG_DATE = " #DATE ";
 		
-		final String REGEX_URL_old = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?|@|_|&|%)*>(.)*<\\/(a|A)>";
 		
-		final String REGEX_URL_new = "(\\w|\\.|:|\\/|@)*(\\.)([a-z]{2,3})(\\w|\\.|:|\\/|@|\\?|=|-)*";
+		
+		final  String REGEX_URL = "(http:\\/\\/)*([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-z]{2,6}(\\/\\w+|\\?\\w+|=\\w+|&\\w+)*";
+
 		final String TAG_URL = " #URL ";
 		
 		
@@ -81,10 +84,10 @@ public class ReadingClueWeb {
                 // it is - create a WarcHTML record
                 WarcHTMLResponseRecord htmlRecord=new WarcHTMLResponseRecord(thisWarcRecord);
                 // get our TREC ID and target URI
-                String thisTRECID=htmlRecord.getTargetTrecID();
+                String trecID=htmlRecord.getTargetTrecID();
                 String thisTargetURI=htmlRecord.getTargetURI();
                 // print our data
-                System.out.println(thisTRECID + " : " + thisTargetURI);
+                System.out.println(trecID + " : " + thisTargetURI);
                 
                 String HTMLContent = htmlRecord.getRawRecord().getContentUTF8();
 				String HTMLContent2="";
@@ -105,7 +108,7 @@ public class ReadingClueWeb {
 						
 					
 				
-				phrases = SentenceDetector.SentenceDetect(textBody);
+				phrases = SentenceDetector.sentenceDetect(textBody);
 				
 				for(String phrase : phrases){
 					/*
@@ -114,7 +117,9 @@ public class ReadingClueWeb {
 					String taggedPhrase = matcherPHONE_NUMBER.replaceAll(TAG_DATE);
 					*/
 					
+					/*
 					//PARTE CHRIS
+					
 					Pattern patternURL = Pattern.compile(REGEX_URL_new);
 					Matcher matcherURL = patternURL.matcher(phrase);
 					String taggedPhrase = matcherURL.replaceAll(TAG_URL);
@@ -132,19 +137,22 @@ public class ReadingClueWeb {
 					System.out.println(taggedPhrase);
 					System.out.println("=======================================");
 					System.out.println();
+					*/
 					
+					TAGComponent.tagPhrase(trecID, phrase);
 					
 				}
 				
-				
-				//System.out.println(body);
-                //System.out.println("====================================");
-                /*pw.println(HTMLContent2);
+				/*
+				System.out.println(body);
+                System.out.println("====================================");
+                pw.println(HTMLContent2);
                 pw.println("============================");
                 pw.println("estrazione testo jsoup");
                 pw.println("============================");
                 pw.println(body);
-                pw.println("============================");*/
+                pw.println("============================");
+                */
               }
             }
             //pw.close();

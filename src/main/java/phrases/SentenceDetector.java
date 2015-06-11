@@ -11,7 +11,7 @@ import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.util.InvalidFormatException;
 
 public class SentenceDetector {
-	public static String[] SentenceDetect(String paragraph) throws InvalidFormatException,IOException {
+	public static String[] sentenceDetect(String paragraph) throws InvalidFormatException,IOException {
 		InputStream is = new FileInputStream("util/en-sent.bin");
 		
 //		FileInputStream text = new FileInputStream("util/testoProva");

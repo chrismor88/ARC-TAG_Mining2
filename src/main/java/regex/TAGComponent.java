@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import org.omg.IOP.TAG_MULTIPLE_COMPONENTS;
 
+import writer_text.TAGMiningFileWriter;
+
 public class TAGComponent {
 	
 	/* REGEX */
@@ -61,7 +63,8 @@ public class TAGComponent {
 	
 	private final String REGEX_NUM = "((\\+|-)?\\d+((\\.|,)\\d+)?(\\^\\d+)?((\\s*\\*\\s*)10\\^\\d+)?(\\s*E\\^(\\+|-)?\\d+)?)";
 	private final String REGEX_URL_old = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?|@|_|&|%)*>(.)*<\\/(a|A)>";
-	private final String REGEX_URL = "(\\w|\\.|:|\\/|@)*(\\.)([a-z]{2,3})(\\w|\\.|:|\\/|@|\\?|=|-)*";
+	//private final static String REGEX_URL_2 = "(\\w|\\.|:|\\/|@)*(\\.)([a-z]{2,3})(\\w|\\.|:|\\/|@|\\?|=|-)*";
+	private final static String REGEX_URL = "(http:\\/\\/)*([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-z]{2,6}(\\/\\w+|\\?\\w+|=\\w+|&\\w+)*";
 	
 	private final String REGEX_DISTANCE = REGEX_NUM+LENGTH_MEASURE;
 	private final String REGEX_AREA = REGEX_NUM+AREA_MEASURE+")";
@@ -91,7 +94,7 @@ public class TAGComponent {
 	final String TAG_DISTANCE = " #DISTANCE ";
 	final String TAG_AREA = " #AREA ";
 	final String TAG_SPEED = " #SPEED ";
-	final String TAG_URL = " #URL ";
+	final static String TAG_URL = " #URL ";
 	final String TAG_WEIGHT = " #WEIGHT ";
 	final String TAG_VOLUME = " #VOLUME ";
 	final String TAG_DATA_RATE = " #DATA_RATE ";
@@ -114,8 +117,13 @@ public class TAGComponent {
 	
 	
 	
-	public String tagPhrase(String tracID,String phrase){
+	public static void tagPhrase(String warcTrecID,String phrase){
+		tagURL(warcTrecID, phrase);
 		
+		
+	}
+
+	private static void tagURL(String warcTrecID, String phrase) {
 		String phraseChanged = phrase;
 		int startIndex, endIndex = 0;
 		
@@ -126,38 +134,21 @@ public class TAGComponent {
 			startIndex = matcherURL.start();
 			endIndex = matcherURL.end();
 			String stringMatched = matcherURL.group();
-			System.out.println("start index: "+startIndex);
-			System.out.println("end index: "+endIndex);
-			System.out.println(stringMatched);
-			System.out.println();
-
+	
+			try {
+				TAGMiningFileWriter.writeOutput1(warcTrecID,stringMatched, TAG_URL);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			phraseChanged = phraseChanged.substring(0, startIndex-1)+TAG_URL+phraseChanged.substring(endIndex+1);
-			
-			
-			//write on output1 file   tracID\t\tstringMatched\t\t
-
+		    phraseChanged = phraseChanged.substring(0, startIndex-1)+TAG_URL+phraseChanged.substring(endIndex+1);
 		}
 		
-		/*
+		
 		if(!phrase.equals(phraseChanged)){
-			//write 
+			//write on output2 file
 		}
-		*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		Pattern patternPHONE_NUMBER = Pattern.compile(REGEX_CLEAN_TEXT);
-		Matcher matcherPHONE_NUMBER = patternPHONE_NUMBER.matcher(phrase);
-		String cleanedText = matcherPHONE_NUMBER.replaceAll("");
-		
-		return cleanedText;	
 	}
 	
 	
