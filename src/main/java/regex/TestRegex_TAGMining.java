@@ -91,7 +91,8 @@ public class TestRegex_TAGMining{
 
 
 
-		final String REGEX_URL = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?|@|_|&|%)*>(.)*<\\/(a|A)>";
+		final String REGEX_URL_old = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?|@|_|&|%)*>(.)*<\\/(a|A)>";
+		final String REGEX_URL = "(\\w|\\.|:|\\/|@)*(\\.)([a-z]{2,3})(\\w|\\.|:|\\/|@|\\?|=|-)*";
 
 		final String REGEX_CLEAN_TEXT = "<(\\w)*|(\\/)(\\w)*>";
 

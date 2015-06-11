@@ -53,7 +53,9 @@ public class ReadingClueWeb {
 		
 		final String TAG_DATE = " #DATE ";
 		
-		final String REGEX_URL = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?|@|_|&|%)*>(.)*<\\/(a|A)>";
+		final String REGEX_URL_old = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?|@|_|&|%)*>(.)*<\\/(a|A)>";
+		
+		final String REGEX_URL_new = "(\\w|\\.|:|\\/|@)*(\\.)([a-z]{2,3})(\\w|\\.|:|\\/|@|\\?|=|-)*";
 		final String TAG_URL = " #URL ";
 		
 		
@@ -90,10 +92,7 @@ public class ReadingClueWeb {
 					HTMLContent2 = HTMLContent.substring(HTMLContent.indexOf("<"));
 				}
 				
-				//PARTE CHRIS
-				Pattern patternURL = Pattern.compile(REGEX_URL);
-				Matcher matcherURL = patternURL.matcher(HTMLContent2);
-				String HTMLtaggato = matcherURL.replaceAll(TAG_URL);
+	
 				
 				
 				
@@ -101,41 +100,42 @@ public class ReadingClueWeb {
 				
 				
 				//PARTE CHRIS
-				String textBody = getHTMLBody(HTMLtaggato);
+				String textBody = getHTMLBody(HTMLContent2);
+
+						
+					
 				
-				System.out.println("========== TESTO ORIGINALE ==========");
-				System.out.println(HTMLContent2);
-				System.out.println("=======================================");
-				System.out.println();
-				
-				
-				
-				
-				System.out.println("========== TESTO CON TAG URL ==========");
-				System.out.println(HTMLtaggato);
-				System.out.println("=======================================");
-				System.out.println();
-				
-				
-				
-				
-				
-				
-				/*
 				phrases = SentenceDetector.SentenceDetect(textBody);
 				
 				for(String phrase : phrases){
-					
+					/*
 					Pattern patternPHONE_NUMBER = Pattern.compile(REGEX_DATE);
 					Matcher matcherPHONE_NUMBER = patternPHONE_NUMBER.matcher(phrase);
 					String taggedPhrase = matcherPHONE_NUMBER.replaceAll(TAG_DATE);
+					*/
+					
+					//PARTE CHRIS
+					Pattern patternURL = Pattern.compile(REGEX_URL_new);
+					Matcher matcherURL = patternURL.matcher(phrase);
+					String taggedPhrase = matcherURL.replaceAll(TAG_URL);
+					
+					//PARTE CHRIS
+					System.out.println("========== Frase ORIGINALE ==========");
 					System.out.println(phrase);
+					System.out.println("=======================================");
+					System.out.println();
+					
+					
+					
+					//PARTE CHRIS
+					System.out.println("========== Frase con TAG URL ==========");
 					System.out.println(taggedPhrase);
-					System.out.println("===========");
+					System.out.println("=======================================");
+					System.out.println();
 					
 					
 				}
-				*/
+				
 				
 				//System.out.println(body);
                 //System.out.println("====================================");
@@ -156,6 +156,7 @@ public class ReadingClueWeb {
 		String aux="";
 		try {
 			aux= Jsoup.parse(HTMLContent).body().text();
+			
 
 		} catch (NullPointerException e) {
 			e.printStackTrace();
