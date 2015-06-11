@@ -76,8 +76,8 @@ public class TestRegex_TAGMining{
 		//for format dd Month yyyy, dd Month yy,ddMonthyyyy
 		final String date3 = "([0]?[1-9]|[1|2][0-9]|[3][0|1])"+MONTH+"([0-9]{4}|[0-9]{2})";
 
-		//for format Month dd,    Month dd, yyyy, Month ddth, yyyy.........
-		final String date4 = "("+MONTH+"\\d+"+"(st|nd|rd|th)?(,\\s+([1|2]\\d{3})?)?)";
+		//for format Month dd,    Month dd, yyyy, Month ddth, yyyy, Month dd-yyyy 
+		final String date4 = "("+MONTH+"\\d+"+"(st|nd|rd|th)?((,|-)*\\s+([1|2]\\d{3})?)?)";
 
 		//for format ddth Month   ddth Month yyyy
 		final String date5 = "("+REGEX_ORD+MONTH+"(\\d{4})?)";
@@ -91,7 +91,7 @@ public class TestRegex_TAGMining{
 
 
 
-		final String REGEX_URL = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?)*>(\\.)*<\\/(a|A)>";
+		final String REGEX_URL = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?|@|_|&|%)*>(.)*<\\/(a|A)>";
 
 		final String REGEX_CLEAN_TEXT = "<(\\w)*|(\\/)(\\w)*>";
 
@@ -134,12 +134,12 @@ public class TestRegex_TAGMining{
 		String text10 = "1km   1,30232 m  321.039120 ms";
 		String text11 = "15GB/s 10Mb/s     fdsjkfsdkjf eqweqwe 7 Kbps   ";
 
-		String text12 = "555.123.4567	+1-(800)-555-2468"+
-				"foo@demo.net	bar.ba@test.co.uk"+
-				"<a href=\"www.demo.com\">fdsfsd fsdfsdfsdfds   </a>"+
-				"http://foo.co.uk/"+
-				"<a href=\"http://regexr.com/foo.html?q=bar\">hdjskhkja sdajksdkajsd</a>"+
-				"<TD style=\"PADDING-RIGHT: 5px; PADDING-LEFT: 5px\" noWrap background=images/link-bg.gif>"+
+		String text12 = "555.123.4567	+1-(800)-555-2468\n"+
+				"foo@demo.net	bar.ba@test.co.uk\n"+
+				"<a href=\"www.demo.com\">fdsfsd fsdfsdfsdfds   </a>\n"+
+				"http://foo.co.uk/\n"+
+				"<a href=\"http://regexr.com/foo.html?q=bar\">hdjskhkja sdajksdkajsd</a>\n"+
+				"<TD style=\"PADDING-RIGHT: 5px; PADDING-LEFT: 5px\" noWrap background=images/link-bg.gif>\n"+
 				"<A class=toplink href=\"http://004967b.netsolhost.com/home.php\">Home</A></TD>";		
 
 
@@ -269,6 +269,7 @@ public class TestRegex_TAGMining{
 		 */
 
 		System.out.println(text12);
+		System.out.println("===============\n");
 		System.out.println(result8);
 		System.out.println();
 

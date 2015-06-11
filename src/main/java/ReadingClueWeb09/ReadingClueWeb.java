@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 import phrases.*;
@@ -14,8 +16,52 @@ import org.jsoup.Jsoup;
 
 public class ReadingClueWeb {
 	public static void main(String[] args) throws IOException {
+		
+		final String REGEX_PHONE = "(\\+)*(\\d+-)*\\(\\d+\\)(-|\\s)+\\d+(-|\\s)*\\d+|\\d+\\.\\d+\\.\\d+|(\\+)*\\d+\\s\\d+\\s\\d+(\\s\\d+)*|\\d+-\\d+-\\d+\\d+\\s\\d+|(\\+)+\\d*\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\d+\\s)+\\d+\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\+\\d+\\s)*\\d+-\\d+\\s\\d+"+
+				"|\\d+\\s\\(\\d+\\)\\s\\d+\\s\\d+|\\d{3,4}\\s\\d{4}";
+		
+		final String TAG_PHONE = " #CALL ";
+		
+		
+		final String REGEX_ORD = "((\\d+(st|nd|rd|th)) | (\\d+°))";
+		
+		final String MONTH = "(\\s*(January|january|jan(\\.)|Jan(\\.)?|JAN(\\.)?|February|february|Feb(\\.)?|FEB(\\.)?|feb(\\.)?|March|march|Mar(\\.)?|MAR(\\.)?|mar(\\.)?|April|april|Apr(\\.)?|APR(\\.)?|"+
+				"May|MAY|may|June|JUNE|june|July|JULY|july|August|august|Aug(\\.)?|AUG(\\.)?|aug(\\.)?|"+
+				"September|september|Sept(\\.)?|SEPT(\\.)?|sept(\\.)?|October|october|Oct(\\.)?|OCT(\\.)?|oct(\\.)?|November|november|Nov(\\.)?|NOV(\\.)?|nov(\\.)?|December|december|Dec(\\.)?|DEC(\\.)?|dec(\\.)?)\\s*)";
+
+		//for format dd/mm/yyyy, dd/mm/yy, dd.mm.yyyy, dd.mm.yy, dd-mm-yyyy, dd-mm-yy, dd mm yyyy, dd mm yy
+		final String date1 = "(([0]?[1-9]|[1|2][0-9]|[3][0|1])(\\.|/|-|\\s+)([0]?[1-9]|[1][0-2])(\\.|/|-|\\s+)([0-9]{4}|[0-9]{2}))";
+
+
+		//for format mm/dd/yyyy, mm-dd-yyyy, mm dd yyyy, mm.dd.yyyy
+		final String date2 = "(([0]?[1-9]|[1][0-2])(\\.|/|-|\\s+)([0]?[1-9]|[1|2][0-9]|[3][0|1])(\\.|/|-|\\s+)([0-9]{4}))";
+
+		//for format dd Month yyyy, dd Month yy,ddMonthyyyy
+		final String date3 = "([0]?[1-9]|[1|2][0-9]|[3][0|1])"+MONTH+"([0-9]{4}|[0-9]{2})";
+
+		//for format Month dd,    Month dd, yyyy, Month ddth, yyyy, Month dd-yyyy 
+		final String date4 = "("+MONTH+"\\d+"+"(st|nd|rd|th)?((,|-)*\\s+([1|2]\\d{3})?)?)";
+
+		//for format ddth Month   ddth Month yyyy
+		final String date5 = "("+REGEX_ORD+MONTH+"(\\d{4})?)";
+
+		//for format yyyy-mm-dd, yyyy/mm/dd, yyyy mm dd
+		final String date6 = "([1|2]\\d{3}(\\.|-|/|\\s+)([0]?[1-9]|[1][0-2])(\\.|-|/|\\s+)(\\d{1,2}))";
+
+
+		final String REGEX_DATE = date1+"|"+date2+"|"+date3+"|"+date4+"|"+date5+"|"+date6;
+		
+		final String TAG_DATE = " #DATE ";
+		
+		final String REGEX_URL = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?|@|_|&|%)*>(.)*<\\/(a|A)>";
+		final String TAG_URL = " #URL ";
+		
+		
+		
+		
+		
 		// Set up a local compressed WARC file for reading 
-        String inputWarcFile="/home/roberto/Scaricati/00.warc.gz";
+        String inputWarcFile="/Volumes/DATA/workspace/warc_dir/00.warc.gz";
             // open our gzip input stream
             GZIPInputStream gzInputStream=new GZIPInputStream(new FileInputStream(inputWarcFile));
             
@@ -43,8 +89,53 @@ public class ReadingClueWeb {
 				if (HTMLContent.indexOf("<")!=-1){
 					HTMLContent2 = HTMLContent.substring(HTMLContent.indexOf("<"));
 				}
-				String textBody = getHTMLBody(HTMLContent2);
+				
+				//PARTE CHRIS
+				Pattern patternURL = Pattern.compile(REGEX_URL);
+				Matcher matcherURL = patternURL.matcher(HTMLContent2);
+				String HTMLtaggato = matcherURL.replaceAll(TAG_URL);
+				
+				
+				
+				//String textBody = getHTMLBody(HTMLContent2);
+				
+				
+				//PARTE CHRIS
+				String textBody = getHTMLBody(HTMLtaggato);
+				
+				System.out.println("========== TESTO ORIGINALE ==========");
+				System.out.println(HTMLContent2);
+				System.out.println("=======================================");
+				System.out.println();
+				
+				
+				
+				
+				System.out.println("========== TESTO CON TAG URL ==========");
+				System.out.println(HTMLtaggato);
+				System.out.println("=======================================");
+				System.out.println();
+				
+				
+				
+				
+				
+				
+				/*
 				phrases = SentenceDetector.SentenceDetect(textBody);
+				
+				for(String phrase : phrases){
+					
+					Pattern patternPHONE_NUMBER = Pattern.compile(REGEX_DATE);
+					Matcher matcherPHONE_NUMBER = patternPHONE_NUMBER.matcher(phrase);
+					String taggedPhrase = matcherPHONE_NUMBER.replaceAll(TAG_DATE);
+					System.out.println(phrase);
+					System.out.println(taggedPhrase);
+					System.out.println("===========");
+					
+					
+				}
+				*/
 				
 				//System.out.println(body);
                 //System.out.println("====================================");
