@@ -149,6 +149,9 @@ public class TAGComponent {
 		
 		
 		if(!phrase.equals(changedPhrase)){
+			if(changedPhrase.substring(0,(changedPhrase.length()/2)-1).equals(changedPhrase.substring((changedPhrase.length())/2, changedPhrase.length()-1))){
+				//inserire qui il corpo dell'if
+			}
 			//System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 			TAGMiningFileWriter.writeOutput2(trecID,phrase);
 			TAGMiningFileWriter.writeOutput3(trecID,changedPhrase);
