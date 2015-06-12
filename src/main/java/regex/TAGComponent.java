@@ -64,7 +64,7 @@ public class TAGComponent {
 	private final String REGEX_NUM = "((\\+|-)?\\d+((\\.|,)\\d+)?(\\^\\d+)?((\\s*\\*\\s*)10\\^\\d+)?(\\s*E\\^(\\+|-)?\\d+)?)";
 	private final String REGEX_URL_old = "<(A|a)\\s*(\\w|\\s|=|\"|:|\\/|\\.|-|\\?|@|_|&|%)*>(.)*<\\/(a|A)>";
 	//private final static String REGEX_URL_2 = "(\\w|\\.|:|\\/|@)*(\\.)([a-z]{2,3})(\\w|\\.|:|\\/|@|\\?|=|-)*";
-	private final static String REGEX_URL = "(http:\\/\\/)*([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-z]{2,6}(\\/\\w+|\\?\\w+|=\\w+|&\\w+)*";
+	private final static String REGEX_URL = "(http(s?):\\/\\/)*([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-z]{2,6}(\\/\\w+|\\?\\w+|=\\w+|&\\w+)*";
 	
 	private final String REGEX_DISTANCE = REGEX_NUM+LENGTH_MEASURE;
 	private final String REGEX_AREA = REGEX_NUM+AREA_MEASURE+")";
@@ -117,8 +117,8 @@ public class TAGComponent {
 	
 	
 	
-	public static void tagPhrase(String trackID,String phrase){
-		String phraseChanged = phrase;
+	public static void tagPhrase(String trecID,String phrase){
+		String changedPhrase = phrase;
 		int startIndex, endIndex = 0;
 		
 		
@@ -134,24 +134,24 @@ public class TAGComponent {
 			//System.out.println(stringMatched);
 			//System.out.println();
 			try {
-				TAGMiningFileWriter.writeOutput1(trackID,matchedSubString, TAG_URL);
+				TAGMiningFileWriter.writeOutput1(trecID,matchedSubString, TAG_URL);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			phraseChanged = phrase.substring(0, startIndex-1)+TAG_URL+phrase.substring(endIndex+1);
-			matcherURL = patternURL.matcher(phraseChanged);
+			changedPhrase = changedPhrase.substring(0, startIndex)+TAG_URL+changedPhrase.substring(endIndex);
+			matcherURL = patternURL.matcher(changedPhrase);
 			
 			
 
 		}
 		
 		
-		if(!phrase.equals(phraseChanged)){
-			System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-			TAGMiningFileWriter.writeOutput2(trackID,phrase);
-			TAGMiningFileWriter.writeOutput3(trackID,phraseChanged);
+		if(!phrase.equals(changedPhrase)){
+			//System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+			TAGMiningFileWriter.writeOutput2(trecID,phrase);
+			TAGMiningFileWriter.writeOutput3(trecID,changedPhrase);
 		}
 		
 	}
@@ -189,7 +189,7 @@ public class TAGComponent {
 		}
 		
 		if(!phrase.equals(phraseChanged)){
-			System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+			//System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 			TAGMiningFileWriter.writeOutput2("DASDASD",phrase);
 			TAGMiningFileWriter.writeOutput3("DASDASD",phraseChanged);
 		}
