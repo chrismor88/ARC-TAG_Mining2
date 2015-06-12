@@ -118,7 +118,32 @@ public class TAGComponent {
 	
 	
 	public static void tagPhrase(String trecID,String phrase){
+		
+		if((phrase.substring(0,(phrase.length()/2))).equals((phrase.substring((phrase.length())/2, phrase.length())))){
+			phrase = phrase.substring(0,(phrase.length()/2))+ " "+ phrase.substring((phrase.length())/2, phrase.length());
+			System.out.println("FRASE SPEZZATA: "+phrase);
+		
+		}
+		
+		
 		String changedPhrase = phrase;
+		changedPhrase = tagPhraseURL(trecID,phrase,changedPhrase);
+		
+		
+		
+		
+		if(!phrase.equals(changedPhrase)){
+			TAGMiningFileWriter.writeOutput2(trecID,phrase);
+			TAGMiningFileWriter.writeOutput3(trecID,changedPhrase);
+		}
+		
+	}
+	
+	
+	
+	
+	private static String tagPhraseURL(String trecID, String phrase,String changedPhrase) {
+
 		int startIndex, endIndex = 0;
 		
 		
@@ -129,40 +154,23 @@ public class TAGComponent {
 			startIndex = matcherURL.start();
 			endIndex = matcherURL.end();
 			String matchedSubString = matcherURL.group();
-			//System.out.println("start index: "+startIndex);
-			//System.out.println("end index: "+endIndex);
-			//System.out.println(stringMatched);
-			//System.out.println();
+		
 			try {
 				TAGMiningFileWriter.writeOutput1(trecID,matchedSubString, TAG_URL);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			changedPhrase = changedPhrase.substring(0, startIndex)+TAG_URL+changedPhrase.substring(endIndex);
 			matcherURL = patternURL.matcher(changedPhrase);
-			
-			
-
 		}
 		
-		
-		if(!phrase.equals(changedPhrase)){
-			if(changedPhrase.substring(0,(changedPhrase.length()/2)-1).equals(changedPhrase.substring((changedPhrase.length())/2, changedPhrase.length()-1))){
-				//inserire qui il corpo dell'if
-			}
-			//System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-			TAGMiningFileWriter.writeOutput2(trecID,phrase);
-			TAGMiningFileWriter.writeOutput3(trecID,changedPhrase);
-		}
-		
+		return changedPhrase;
 	}
-	
-	
-	
-	
+
 	public static void main(String[] args) {
+		
+		/*
 		String phrase = " dsklfjsk $43   lks $ 43 dlòkfsd $0,43  fsd 0,43 $  fsdwq fdfs sdf £ ";
 		
 		String phraseChanged = phrase;
@@ -192,11 +200,10 @@ public class TAGComponent {
 		}
 		
 		if(!phrase.equals(phraseChanged)){
-			//System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 			TAGMiningFileWriter.writeOutput2("DASDASD",phrase);
 			TAGMiningFileWriter.writeOutput3("DASDASD",phraseChanged);
 		}
-		
+		*/
 
 		
 		
@@ -208,6 +215,16 @@ public class TAGComponent {
 		System.out.println(cleanedText);
 		System.out.println("\n\n"+REGEX_MONEY);
 		*/
+		
+		
+		String phrase = "ABCnews.comABCnews.com";
+		if((phrase.substring(0,(phrase.length()/2))).equals((phrase.substring((phrase.length())/2, phrase.length())))){
+			phrase = phrase.substring(0,(phrase.length()/2))+ " "+ phrase.substring((phrase.length())/2, phrase.length());
+			System.out.println("FRASE SPEZZATA: "+phrase);
+		
+		}
+		
+		
 		
 	}
 	
