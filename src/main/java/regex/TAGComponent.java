@@ -80,7 +80,7 @@ public class TAGComponent {
 	private final String REGEX_PHONE = "(\\+)*(\\d+-)*\\(\\d+\\)(-|\\s)+\\d+(-|\\s)*\\d+|\\d+\\.\\d+\\.\\d+|(\\+)*\\d+\\s\\d+\\s\\d+(\\s\\d+)*|\\d+-\\d+-\\d+\\d+\\s\\d+|(\\+)+\\d*\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\d+\\s)+\\d+\\s(\\()+\\d+(\\))+\\s\\d+\\s\\d+|(\\+\\d+\\s)*\\d+-\\d+\\s\\d+"+
 			"|\\d+\\s\\(\\d+\\)\\s\\d+\\s\\d+|\\d{3,4}\\s\\d{4}";
 	
-	private final static String REGEX_CLEAN_TEXT = "<(\\w)*|(\\/)(\\w)*>";
+
 
 
 
@@ -101,30 +101,28 @@ public class TAGComponent {
 	final static String TAG_MONEY = " #MONEY ";
 	final String TAG_PHONE = " #CALL ";
 
+	
 
-	
-	public TAGComponent(){
-		super();
-	}
-	
-	public String deleteWastedHTML(String text){
-		Pattern patternPHONE_NUMBER = Pattern.compile(REGEX_CLEAN_TEXT);
-		Matcher matcherPHONE_NUMBER = patternPHONE_NUMBER.matcher(text);
-		String cleanedText = matcherPHONE_NUMBER.replaceAll("");
-		
-		return cleanedText;	
-	}
 	
 	
 	
 	public static void tagPhrase(String trecID,String phrase){
+		String firstPart = phrase.substring(0,(phrase.length()/2));
+		String secondPart = phrase.substring(phrase.length()/2);
 		
-		if((phrase.substring(0,(phrase.length()/2))).equals((phrase.substring((phrase.length())/2, phrase.length())))){
-			phrase = phrase.substring(0,(phrase.length()/2))+ " "+ phrase.substring((phrase.length())/2, phrase.length());
+		
+		
+		if(firstPart.equals(secondPart)){
+			System.out.println("First Part: "+firstPart);
+			System.out.println("Second Part: "+secondPart);
+			phrase = firstPart+" "+secondPart;
 			System.out.println("FRASE SPEZZATA: "+phrase);
-		
+			System.out.println();
+			
+			
 		}
 		
+	
 		
 		String changedPhrase = phrase;
 		changedPhrase = tagPhraseURL(trecID,phrase,changedPhrase);

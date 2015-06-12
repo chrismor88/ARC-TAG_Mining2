@@ -14,6 +14,8 @@ import writer_text.TAGMiningFileWriter;
 
 import org.jsoup.Jsoup;
 
+import clean.CleanerPhrase;
+
 
 
 public class ReadingClueWeb {
@@ -138,8 +140,8 @@ public class ReadingClueWeb {
 					System.out.println("=======================================");
 					System.out.println();
 					*/
-					
-					TAGComponent.tagPhrase(trecID, phrase);
+					String cleanedPhrase = CleanerPhrase.deleteWastedHTML(phrase);
+					TAGComponent.tagPhrase(trecID, cleanedPhrase);
 					
 				}
 				
