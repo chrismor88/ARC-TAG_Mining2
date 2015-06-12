@@ -9,23 +9,29 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 
 public class TAGMiningFileWriter {
+	
+	private final static String PATH = "/Volumes/DATA/workspace/TAGMining_output/";
+	private final static String PATH1 = PATH+"output1.txt";
+	private final static String PATH2 = PATH+"output2.txt";
+	private final static String PATH3 = PATH+"output3.txt";
+	
 
-	public static void writeOutput1(String warcTrecID,String stringaDaRimpiazzare, String tag) throws Exception{
-		String path = "/Volumes/DATA/workspace/TAGMining_output/output1.txt";
+	public static void writeOutput1(String warcTrecID,String stringaDaRimpiazzare, String tag){
 		
+
 		try {
-			File file = new File(path);
+			File file = new File(PATH1);
 
 			if (file.exists()){
 				try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-				    String line = null;
-				    while ((line = reader.readLine()) != null) {
-				        System.out.println(line);
-				    }
+					String line = null;
+					while ((line = reader.readLine()) != null) {
+						System.out.println(line);
+					}
 				} catch (IOException x) {
-				    System.err.format("IOException: %s%n", x);
+					System.err.format("IOException: %s%n", x);
 				}
-				
+
 				PrintWriter pw = new PrintWriter(new FileWriter(file, true));
 				pw.write(warcTrecID+"\t\t\t"+stringaDaRimpiazzare+"\t\t\t"+tag+"\n");
 				pw.flush();
@@ -33,13 +39,15 @@ public class TAGMiningFileWriter {
 			}
 
 			else{
-				if (file.createNewFile()){
+				
 					PrintWriter pw = new PrintWriter(file);
-					pw.write("TRACK-ID\t\tSTRINGA DA SOSTITUIRE\t\tTAG\n");
+					pw.write("TRACK-ID\t\tSTRINGA DA SOSTITUIRE\t\t\tTAG\n");
+					pw.write(warcTrecID+"\t\t"+stringaDaRimpiazzare+"\t\t\t"+tag+"\n");
 					pw.flush();
 					pw.close();
-				}else
-					throw new Exception("Impossibile creare il file output1!");	
+					
+					
+				
 			}
 		}
 		catch (IOException e) {
@@ -50,22 +58,81 @@ public class TAGMiningFileWriter {
 
 
 	}
+
+	public static void writeOutput2(String warcTrecID, String phrase) {
 	
-	public static void main(String[] args) {
+
 		try {
-			TAGMiningFileWriter.writeOutput1("", "", "");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			File file = new File(PATH2);
+
+			if (file.exists()){
+				try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+					String line = null;
+					while ((line = reader.readLine()) != null) {
+						System.out.println(line);
+					}
+				} catch (IOException x) {
+					System.err.format("IOException: %s%n", x);
+				}
+
+				PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+				pw.write(warcTrecID+"\t\t"+phrase+"\n");
+				pw.flush();
+				pw.close();
+			}
+
+			else{
+				
+					PrintWriter pw = new PrintWriter(file);
+					pw.write("TRACK-ID\t\tSTRINGA DA SOSTITUIRE\n");
+					pw.write(warcTrecID+"\t\t"+phrase+"\n");
+					pw.flush();
+					pw.close();
+				
+			}
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
+	public static void writeOutput3(String warcTrecID, String phraseChanged) {
+		
 
+		try {
+			File file = new File(PATH3);
 
+			if (file.exists()){
+				try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+					String line = null;
+					while ((line = reader.readLine()) != null) {
+						System.out.println(line);
+					}
+				} catch (IOException x) {
+					System.err.format("IOException: %s%n", x);
+				}
 
+				PrintWriter pw = new PrintWriter(new FileWriter(file, true));
+				pw.write(warcTrecID+"\t\t"+phraseChanged+"\n");
+				pw.flush();
+				pw.close();
+			}
 
+			else{
+				
+					PrintWriter pw = new PrintWriter(file);
+					pw.write("TRACK-ID\t\tSTRINGA DA SOSTITUIRE\n");
+					pw.write(warcTrecID+"\t\t"+phraseChanged+"\n");
+					pw.flush();
+					pw.close();
+				
+			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 
-
+	}
 
 }

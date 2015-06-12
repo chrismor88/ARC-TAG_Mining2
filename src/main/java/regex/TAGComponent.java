@@ -117,15 +117,10 @@ public class TAGComponent {
 	
 	
 	
-	public static void tagPhrase(String warcTrecID,String phrase){
-		tagURL(warcTrecID, phrase);
-		
-		
-	}
-
-	private static void tagURL(String warcTrecID, String phrase) {
+	public static void tagPhrase(String trackID,String phrase){
 		String phraseChanged = phrase;
 		int startIndex, endIndex = 0;
+		
 		
 		Pattern patternURL = Pattern.compile(REGEX_URL);
 		Matcher matcherURL = patternURL.matcher(phrase);
@@ -133,22 +128,32 @@ public class TAGComponent {
 			
 			startIndex = matcherURL.start();
 			endIndex = matcherURL.end();
-			String stringMatched = matcherURL.group();
-	
+			String matchedSubString = matcherURL.group();
+			//System.out.println("start index: "+startIndex);
+			//System.out.println("end index: "+endIndex);
+			//System.out.println(stringMatched);
+			//System.out.println();
 			try {
-				TAGMiningFileWriter.writeOutput1(warcTrecID,stringMatched, TAG_URL);
+				TAGMiningFileWriter.writeOutput1(trackID,matchedSubString, TAG_URL);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-		    phraseChanged = phraseChanged.substring(0, startIndex-1)+TAG_URL+phraseChanged.substring(endIndex+1);
+			phraseChanged = phrase.substring(0, startIndex-1)+TAG_URL+phrase.substring(endIndex+1);
+			matcherURL = patternURL.matcher(phraseChanged);
+			
+			
+
 		}
 		
 		
 		if(!phrase.equals(phraseChanged)){
-			//write on output2 file
+			System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+			TAGMiningFileWriter.writeOutput2(trackID,phrase);
+			TAGMiningFileWriter.writeOutput3(trackID,phraseChanged);
 		}
+		
 	}
 	
 	
@@ -171,22 +176,23 @@ public class TAGComponent {
 			System.out.println("=================");
 			System.out.println("start index: "+startIndex);
 			System.out.println("end index: "+endIndex);
-			System.out.println(stringMatched);
-			System.out.println();
-
+			System.out.println("Matched substring: "+stringMatched);
 			
 			phraseChanged = phraseChanged.substring(0, startIndex)+TAG_MONEY+phraseChanged.substring(endIndex+1);
-			matcherMONEY = patternMONEY.matcher(phraseChanged);
+			matcherMONEY = patternMONEY.matcher(phraseChanged);		
 			
-			System.out.println(phrase);
-			System.out.println(phraseChanged);
+			System.out.println("Original phrase: "+phrase);
+			System.out.println("Tagged phrase: "+phraseChanged);
 			System.out.println("=================");
 			System.out.println();
 		
-			
-
 		}
-		//System.out.println(phraseChanged);
+		
+		if(!phrase.equals(phraseChanged)){
+			System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+			TAGMiningFileWriter.writeOutput2("DASDASD",phrase);
+			TAGMiningFileWriter.writeOutput3("DASDASD",phraseChanged);
+		}
 		
 
 		
