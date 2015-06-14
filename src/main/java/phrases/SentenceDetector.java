@@ -25,6 +25,8 @@ public class SentenceDetector {
 		SentenceDetectorME sdetector = new SentenceDetectorME(model);
 		String sentences[] = sdetector.sentDetect(paragraph);
 		is.close();
+		
+		
 		return sentences;
 	}
 }
