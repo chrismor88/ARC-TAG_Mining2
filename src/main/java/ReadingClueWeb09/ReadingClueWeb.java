@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -24,7 +25,8 @@ import clean.CleanerPhrase;
 
 public class ReadingClueWeb {
 	public static void main(String[] args) throws IOException {
-
+		long startInMillis = System.currentTimeMillis();
+		System.out.println("INizzzzIo  mannaggia ar core de Romawdd");
 
 
 
@@ -104,25 +106,37 @@ public class ReadingClueWeb {
 		//pw.close();
 		inStream.close();
 		System.out.println("CONCLUSO");
+		long endTimeInMillis = System.currentTimeMillis();
+		double totalTime = (endTimeInMillis - startInMillis) % 1000 ;
+		System.out.println("TEMPO IMPIEGATO: "+totalTime+" sec");
 
 	}
+
+
+
 	private static String getHTMLBody(String HTMLContent){
 		String aux="";
 		try {
-		
-			
-			
-			/*
-			 * DA UTILIZZARE SOLO SE FOSSE NECESSARIO ESTRATTE I TAG <a href> DAL FILE HTML PER POI TAGGARLI CON #URL
-			 * POTREBBE NON FUNZIONARE CON MAP REDUCE!
-			 * 
-			Elements links = Jsoup.parse(HTMLContent, "UTF-8").getElementsByTag("a");
-			for(Element link :links){
-				TAGComponent.tagLink(link.toString());
+
+
+			Element bodyHTML = Jsoup.parse(HTMLContent, "UTF-8").body();
+
+
+			Elements pTags = bodyHTML.getElementsByTag("p");
+
+			for(Element p:pTags){
+
+				String[] parole = p.text().split(" ");
+
+				if(parole.length > 4){
+					//System.out.println(p.text());
+					aux += p.text();
+				}
 			}
-			*/
-			
-			aux= Jsoup.parse(HTMLContent).body().text();
+
+
+
+			//aux= Jsoup.parse(HTMLContent).body().text();
 
 
 		} catch (NullPointerException e) {

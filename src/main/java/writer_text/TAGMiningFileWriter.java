@@ -19,7 +19,7 @@ public class TAGMiningFileWriter {
 	private final static int MAX_LENGHT_FOR_STRING = 50;
 
 	public static void writeOutput1(String warcTrecID,String stringaDaRimpiazzare, String tag){
-		System.out.println("TAG: "+tag);
+		//System.out.println("TAG: "+tag);
 		int diff = MAX_LENGHT_FOR_STRING - stringaDaRimpiazzare.length();
 		String whiteSpaceValueColumn2 = "";
 		
@@ -40,7 +40,7 @@ public class TAGMiningFileWriter {
 				try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 					String line = null;
 					while ((line = reader.readLine()) != null) {
-						//System.out.println(line);
+						////System.out.println(line);
 					}
 				} catch (IOException x) {
 					System.err.format("IOException: %s%n", x);
@@ -92,7 +92,7 @@ public class TAGMiningFileWriter {
 				try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 					String line = null;
 					while ((line = reader.readLine()) != null) {
-						//System.out.println(line);
+						////System.out.println(line);
 					}
 				} catch (IOException x) {
 					System.err.format("IOException: %s%n", x);
@@ -130,7 +130,7 @@ public class TAGMiningFileWriter {
 				try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 					String line = null;
 					while ((line = reader.readLine()) != null) {
-						//System.out.println(line);
+						////System.out.println(line);
 					}
 				} catch (IOException x) {
 					System.err.format("IOException: %s%n", x);
@@ -168,7 +168,7 @@ public class TAGMiningFileWriter {
 				count++;
 			
 		}
-		System.out.println(count);
+		//System.out.println(count);
 		
 	}
 
