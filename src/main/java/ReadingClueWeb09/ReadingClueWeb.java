@@ -81,11 +81,10 @@ public class ReadingClueWeb {
 				phrases = SentenceDetector.sentenceDetect(textBody);
 
 				for(String phrase : phrases){
-					
+					String cleanedPhrase = CleanerPhrase.deleteWastedHTML(phrase);
 					//prende in considerazione frasi di lunghezza compresa tra 4 e 39 parole
-					String[] temp = phrase.split(" ");	
+					String[] temp = cleanedPhrase.split(" ");	
 					if(temp.length>3 && temp.length<40){
-						String cleanedPhrase = CleanerPhrase.deleteWastedHTML(phrase);
 						TAGComponent.tagPhrase(trecID, cleanedPhrase);
 					}
 				}
