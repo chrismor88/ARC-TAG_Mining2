@@ -15,7 +15,7 @@ public class TAGComponent {
 
 	/* REGEX */
 
-	private final static String TLDs = "\\.(com|us|it|en|org|edu|net|int|gov|mil|arpa|museum|ac|ad|ae|af|ag|ai|ao|aq|ar|as|at|au|aw|"+"ax|br|fr|eu|es|de|gb|va|ye|pub)";
+	private final static String TLDs = "\\.(com|us|it|en|org|edu|net|fr|es)";
 	//for format time hh:mm:ss, hh:mm, hh:mm am, hh:mm:ss pm ...........
 	private final static String time1 ="(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?\\s?(am|AM|pm|PM)?)";
 
@@ -103,7 +103,9 @@ public class TAGComponent {
 	private final static String REGEX_NUM = "(([\\+-]?[1-9]\\d*)|([\\+-]?\\d[\\.,]\\d+))";
 	
 	
-	private final static String REGEX_URL = "(http(s?):\\/\\/)*((\\w+(\\.|-|_)\\w+)+|\\w+)"+TLDs;
+//	private final static String REGEX_URL = "(http(s?):\\/\\/)*((\\w+(\\.|-|_)\\w+)+|\\w+)"+TLDs;
+//	private final static String REGEX_URL = "(http(s?):\\/\\/)*((\\w+(\\.|-|_)\\w+)+|\\w+)\\.[a-z]{2,4}";
+	private final static String REGEX_URL = "(http(s?):\\/\\/)?([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?"+TLDs+"(\\/\\w+|\\?\\w+|=\\w+|&\\w+)*)";
 	private final static String REGEX_DISTANCE = "\\d+([\\.,]\\d+)?"+"\\s?"+LENGTH_MEASURE;
 	private final static String REGEX_AREA = "\\d+([\\.,]\\d+)?"+"\\s?"+AREA_MEASURE;
 	private final static String REGEX_VOLUME = "\\d+([\\.,]\\d+)?"+"\\s?"+VOLUME_MEASURE;
@@ -130,8 +132,9 @@ public class TAGComponent {
 	
 	
 	private final static String REGEX_DATE = date1+"|"+date2+"|"+date3+"|"+date4+"|"+date5+"|"+date6+"|"+date7+"|"+date8+"|"+date9+"|"+date10+"|"+date11+"|"+date12;
+//	private final static String REGEX_EMAIL = "\\w+(\\.)*\\w+@\\w+(-)*\\w+"+TLDs;
+//	private final static String REGEX_EMAIL = "\\w+(\\.)*\\w+@\\w+(-)*\\w+\\.[a-z]{2,4}";
 	private final static String REGEX_EMAIL = "\\w+(\\.)*\\w+@\\w+(-)*\\w+"+TLDs;
-
 
 
 
