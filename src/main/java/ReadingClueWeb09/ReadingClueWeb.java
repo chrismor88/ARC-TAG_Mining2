@@ -32,7 +32,7 @@ public class ReadingClueWeb {
 
 
 		// Set up a local compressed WARC file for reading 
-		String inputWarcFile="/Volumes/DATA/workspace/warc_dir/00.warc.gz";
+		String inputWarcFile="util/00.warc.gz";
 		// open our gzip input stream
 		GZIPInputStream gzInputStream=new GZIPInputStream(new FileInputStream(inputWarcFile));
 
@@ -107,8 +107,10 @@ public class ReadingClueWeb {
 		inStream.close();
 		System.out.println("CONCLUSO");
 		long endTimeInMillis = System.currentTimeMillis();
-		double totalTime = (endTimeInMillis - startInMillis) % 1000 ;
+		double totalTime = (endTimeInMillis - startInMillis) / 1000 ;
+		double totalTime2 = (endTimeInMillis - startInMillis) ;
 		System.out.println("TEMPO IMPIEGATO: "+totalTime+" sec");
+		System.out.println("TEMPO IMPIEGATO: "+totalTime2+" ms");
 
 	}
 
