@@ -8,9 +8,9 @@ import java.io.PrintWriter;
 public class TAGMiningFileWriter {
 	
 	private final static String PATH = "util/TAGMining_output/";
-	private final static String PATH1 = PATH+"output1.txt";
-	private final static String PATH2 = PATH+"output2.txt";
-	private final static String PATH3 = PATH+"output3.txt";
+	private final static String PATH1 = PATH+"output1.tsv";
+	private final static String PATH2 = PATH+"output2.tsv";
+	private final static String PATH3 = PATH+"output3.tsv";
 	
 
 	public static void writeOutput1(String warcTrecID,String stringaDaRimpiazzare, String tag){
@@ -19,7 +19,7 @@ public class TAGMiningFileWriter {
 		
 		try {
 			out = new PrintWriter(new BufferedWriter(new FileWriter(PATH1, true)));
-			out.println(warcTrecID+"\t\t"+stringaDaRimpiazzare+"\t\t"+tag);
+			out.println(warcTrecID+"\t"+stringaDaRimpiazzare+"\t"+tag);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class TAGMiningFileWriter {
 		
 		try {
 			out = new PrintWriter(new BufferedWriter(new FileWriter(PATH2, true)));
-			out.println(warcTrecID+"\t\t"+phrase);
+			out.println(warcTrecID+"\t"+phrase);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -52,7 +52,7 @@ public class TAGMiningFileWriter {
 		PrintWriter out=null;
 		try {
 			out = new PrintWriter(new BufferedWriter(new FileWriter(PATH3, true)));
-			out.println(warcTrecID+"\t\t"+phraseChanged);
+			out.println(warcTrecID+"\t"+phraseChanged);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
