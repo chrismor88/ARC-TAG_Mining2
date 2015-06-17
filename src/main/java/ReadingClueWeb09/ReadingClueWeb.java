@@ -32,7 +32,10 @@ public class ReadingClueWeb {
 
 
 		// Set up a local compressed WARC file for reading 
-		String inputWarcFile="util/00.warc.gz";
+		//String inputWarcFile="util/00.warc.gz";
+		String inputWarcFile = "/Volumes/DATA/workspace/warc_dir/00.warc.gz";
+		
+		
 		// open our gzip input stream
 		GZIPInputStream gzInputStream=new GZIPInputStream(new FileInputStream(inputWarcFile));
 
@@ -114,7 +117,7 @@ public class ReadingClueWeb {
 
 	}
 
-
+//ciao
 
 	private static String getHTMLBody(String HTMLContent){
 		String aux="";
@@ -132,7 +135,7 @@ public class ReadingClueWeb {
 
 				if(parole.length > 4){
 					//System.out.println(p.text());
-					aux += p.text();
+					aux = aux+" "+p.text();
 				}
 			}
 
