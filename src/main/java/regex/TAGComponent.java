@@ -37,19 +37,19 @@ public class TAGComponent {
 			"September|september|Sept(\\.)?|SEPT(\\.)?|sept(\\.)?|October|october|Oct(\\.)?|OCT(\\.)?|oct(\\.)?|November|november|Nov(\\.)?|NOV(\\.)?|nov(\\.)?|December|december|Dec(\\.)?|DEC(\\.)?|dec(\\.)?)";
 		
 	//for format dd/mm/yyyy o d/m/yyyy
-	private final static String date1 = "\\s\\d{1,2}\\/\\d{1,2}\\/(19|20)\\d{2}\\s";
+	private final static String date1 = "\\d{1,2}\\/\\d{1,2}\\/(19|20)\\d{2}";
 	
 	
 	//for format dd-mm-yyyy o d-m-yyyy
-	private final static String date2 = "\\s\\d{1,2}-\\d{1,2}-(19|20)\\d{2}\\s";
+	private final static String date2 = "\\d{1,2}-\\d{1,2}-(19|20)\\d{2}";
 	
 	
 	//for format dd mm yyyy o   d m yyyy
-	private final static String date3 = "\\s\\d{1,2}\\s\\d{1,2}\\s(19|20)\\d{2}\\s";
+	private final static String date3 = "\\d{1,2}\\s\\d{1,2}\\s(19|20)\\d{2}";
 	
 	
 	//for format yyyy mm dd o yyyy m d
-	private final static String date4 = "\\s(19|20)\\d{2}\\s\\d{1,2}\\s\\d{1,2}\\s";
+	private final static String date4 = "(19|20)\\d{2}\\s\\d{1,2}\\s\\d{1,2}";
 	
 	
 	//for format dth mm yyyy o  dth m yyyyy
@@ -68,14 +68,14 @@ public class TAGComponent {
 	private final static String date8 = "\\s"+MONTH+"\\s"+REGEX_ORD+"(,?\\s*)?\\s*(19|20)\\d{2}\\s";
 	
 	//for format dd.mm.yyyy o d.m.yyyy o yyyy.mm.yy o yyyy.m.y o dd.mm.yy o mm.dd.yy
-	private final static String date9 = "(\\s\\d{1,2}(\\.)\\d{1,2}(\\.)(19|20)\\d{2}\\s)|(\\s(19|20)\\d{2}(\\.)\\d{1,2}(\\.)\\d{1,2}\\s)|(\\s\\d{1,2}\\.\\d{1,2}\\.\\d{2}\\s)";
+	private final static String date9 = "(\\d{1,2}(\\.)\\d{1,2}(\\.)(19|20)\\d{2})|((19|20)\\d{2}(\\.)\\d{1,2}(\\.)\\d{1,2})|(\\d{1,2}\\.\\d{1,2}\\.\\d{2})";
 	
 	
 	//for format yyyy-mm-dd o yyyy-m-d
-	private final static String date10 = "\\s(19|20)\\d{2}-\\d{1,2}-\\d{1,2}\\s";
+	private final static String date10 = "(19|20)\\d{2}-\\d{1,2}-\\d{1,2}";
 	
 	//for format yyyy-MONTH-dd o dd-MONTH-yyyy
-	private final static String date11 = "\\s(19|20)\\d{2}-"+MONTH+"-\\d{1,2}\\s*|\\s*\\d{1,2}-"+MONTH+"-(19|20)\\d{2}\\s";
+	private final static String date11 = "(19|20)\\d{2}-"+MONTH+"-\\d{1,2}\\s*|\\s*\\d{1,2}-"+MONTH+"-(19|20)\\d{2}";
 	
 	//for format MONTH yyyy o dd MONTH yyyy
 	private final static String date12 = "((\\s\\d{1,2})?\\s"+MONTH+"\\s(19|20)\\d{2}\\s)";
@@ -119,7 +119,7 @@ public class TAGComponent {
 	private final static String REGEX_MONEY = CURRENCY+"\\s?\\d+(\\.|,)\\d+|\\d+(\\.|,)\\d+\\s?"+CURRENCY+"|"+CURRENCY+"\\s?\\d+"+"|"+"\\s\\d+\\s?"+CURRENCY;
 	private final static String REGEX_DATA = "\\d+([\\.,]\\d+)?"+"\\s?"+DATA_MEASURE;
 	private final static String REGEX_DATE_RANGE = "(1\\d{3}[\\/-]1\\d{3})|(1\\d{3}[\\/-]2\\d{3})|(2\\d{3}[\\/-]2\\d{3})|([12]\\d{3}(\\/)\\d{2})";
-
+	private final static String REGEX_YEAR = "(19|20)\\d{2}";
 
 	/*
 	private final static String REGEX_PHONE = "(\\s\\d{3}-\\d{4,5}\\s)|(\\s\\(\\d{3}\\)\\s(\\/\\s)?\\d{3}-\\d{4,5}\\s)|(\\s(\\d{2}-|\\+)\\d{2}-\\d{2}-\\d{3}-\\d{5}\\s)|(\\s(\\+)?\\d-\\d{3}-\\d{3}-\\d{4}\\s)|"+
@@ -158,6 +158,7 @@ public class TAGComponent {
 	//final static String TAG_PRESSURE = " #PRESSURE ";
 	final static String TAG_DATA = " #DATA ";
 	final static String TAG_DATE_RANGE = " #DATE_RANGE ";
+	final static String TAG_YEAR = " #YEAR ";
 
 
 
@@ -195,7 +196,7 @@ public class TAGComponent {
 		changedPhrase = tagPhraseDATA_RATE(trecID,changedPhrase);
 		changedPhrase = tagPhraseDATA(trecID,changedPhrase);
 		changedPhrase = tagPhraseORD(trecID,changedPhrase);
-	
+		changedPhrase = tagPhraseYEAR(trecID,changedPhrase);
 		changedPhrase = tagPhraseNUM(trecID,changedPhrase);
 
 
@@ -205,6 +206,37 @@ public class TAGComponent {
 			TAGMiningFileWriter.writeOutput3(trecID,changedPhrase);
 		}
 
+	}
+
+
+
+
+	private static String tagPhraseYEAR(String trecID, String phrase) {
+		String changedPhrase = phrase;
+		int startIndex, endIndex = 0;
+
+
+		Pattern pattern = Pattern.compile(REGEX_YEAR);
+		Matcher matcher = pattern.matcher(phrase);
+		while(matcher.find()){
+
+			startIndex = matcher.start();
+			endIndex = matcher.end();
+			String matchedSubString = matcher.group();
+
+			
+			try {
+				TAGMiningFileWriter.writeOutput1(trecID,matchedSubString, TAG_YEAR);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+
+			changedPhrase = changedPhrase.substring(0, startIndex)+TAG_YEAR+changedPhrase.substring(endIndex);
+			matcher = pattern.matcher(changedPhrase);
+		}
+
+		return changedPhrase;
 	}
 
 
