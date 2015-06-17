@@ -27,7 +27,6 @@ public class TagCountMapper extends
 		String line = value.toString();
 		
 		StringTokenizer tokenizer = new StringTokenizer(line);
-//		StringTokenizer tok2 = new StringTokenizer("#");
 
 		while (tokenizer.hasMoreTokens()) {
 			word.set(tokenizer.nextToken());
