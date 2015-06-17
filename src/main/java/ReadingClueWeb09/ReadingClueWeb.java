@@ -135,7 +135,7 @@ public class ReadingClueWeb {
 
 				if(parole.length > 4){
 					//System.out.println(p.text());
-					aux += p.text();
+					aux = aux+" "+p.text();
 				}
 			}
 
